@@ -28,13 +28,14 @@ We used the [rouge-score](https://pypi.org/project/rouge-score/) package impleme
 | Date          | Method                                   | ROUGE-1 Score | ROUGE-L Score |
 |---------------|------------------------------------------|---------------|---------------|
 |  May 13, 2023 | Take first 300 characters in the article | 0.388         | 0.239         |
-|               |                                          |               |               |
+|  May 13, 2023 | Use the entire article as summary        | 0.157         | 0.114         |
 |               |                                          |               |               |
 
-### Baselines
+## Journal
 
-* May 13, 2023 The first baseline we used is just taking the first 300 characters (average length of the training highlights) and use that as the summary.
-  We got a ROUGE-1 score of 0.388 and ROUGE-L score of 0.239.
+### May 13, 2023
+
+Implemented a few baseline methods, such as using the article itself or the first 300 characters (average length of the training highlights).
 
 
 ## Misc
