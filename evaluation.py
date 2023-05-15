@@ -1,9 +1,5 @@
 # Databricks notebook source
-# MAGIC %md ### Set up
-# MAGIC
-# MAGIC Install the `rouge-score` python package maintained by Google research
-# MAGIC - https://pypi.org/project/rouge-score/
-# MAGIC - https://github.com/google-research/google-research/tree/master/rouge
+INPUT_FILE = "/dbfs/yxiong/cnn_dailymail/first-300-chars.csv"
 
 # COMMAND ----------
 
@@ -13,52 +9,19 @@
 
 from datasets import load_dataset
 dataset = load_dataset("cnn_dailymail", "3.0.0", cache_dir="/dbfs/yxiong/huggingface/")
-
-# COMMAND ----------
-
 val_df = dataset["validation"].to_pandas()
 
 # COMMAND ----------
 
-from tqdm import tqdm
 import utils
 
-# COMMAND ----------
-
-# MAGIC %md ### Compute baseline results
-
-# COMMAND ----------
-
-# MAGIC %md #### First 300 characters
-
-# COMMAND ----------
-
-predictions = {}
-
-for _, row in tqdm(val_df.iterrows(), total=val_df.shape[0]):
-    predictions[row["id"]] = row["article"][:300]
-
-utils.write_predictions_to_csv(predictions, "/dbfs/yxiong/cnn_dailymail/first-300-chars.csv")
-
-# COMMAND ----------
-
-# MAGIC %md #### Entire article
-
-# COMMAND ----------
-
-predictions = {}
-
-for _, row in tqdm(val_df.iterrows(), total=val_df.shape[0]):
-    predictions[row["id"]] = row["article"]
-
-# COMMAND ----------
-
-# MAGIC %md ### Compute Rogue Score
+predictions = utils.load_predictions_from_csv(INPUT_FILE)
 
 # COMMAND ----------
 
 import numpy as np
 from rouge_score import rouge_scorer
+from tqdm import tqdm
 
 scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
 rouge1_scores = []
