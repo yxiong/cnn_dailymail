@@ -25,13 +25,24 @@ but we verified that the validation and test sets have similar characteristics.
 ## Evaluation
 We used the [rouge-score](https://pypi.org/project/rouge-score/) package implemented by Google research as the main tool for evaluation.
 
-| Date          | Method                                   | ROUGE-1 Score | ROUGE-L Score |
-|---------------|------------------------------------------|---------------|---------------|
-|  May 13, 2023 | Take first 300 characters in the article | 0.388         | 0.239         |
-|  May 13, 2023 | Use the entire article as summary        | 0.157         | 0.114         |
-|               |                                          |               |               |
+| Date          | Method                                                         | ROUGE-1 Score | ROUGE-2 Score | ROUGE-L Score |
+|---------------|----------------------------------------------------------------|---------------|---------------|---------------|
+|  May 19, 2023 | Use Huggingface pre-trained pipeline "facebook/bart-large-cnn" | 0.435         | 0.212         | 0.306         |
+|  May 13, 2023 | Take first 300 characters in the article                       | 0.388         | 0.160         | 0.239         |
+|  May 13, 2023 | Use the entire article as summary                              | 0.157         | 0.090         | 0.114         |
 
 ## Journal
+
+### May 19, 2023
+
+Moved to Google Colab and run inference on huggingface pre-trained pipeline.
+The score we get is better than first 300 character baseline we get before, but
+lower than those on the [leaderboard](https://paperswithcode.com/sota/document-summarization-on-cnn-daily-mail).
+
+It takes more than 2 hours to run inference on 13K validation rows, about 1.6 row per seconds.
+The execution is on a T4 GPU with batching, and the GPU utilization is around 80%.
+
+![GPU Usage](assets/20230519_GPU_Usage.png)
 
 ### May 13, 2023
 
