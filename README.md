@@ -51,7 +51,7 @@ We used the [rouge-score](https://pypi.org/project/rouge-score/) package impleme
 
 Used langchain on OpenAI with preliminary prompt engineering,
 and get results slightly better than first-300-character baseline.
-* It took ~10 seconds per row for sending the request to OpenAI, or ~20 minutes for 100 rows.
+* It took ~10 seconds per row for sending the request to OpenAI, or ~20 minutes for 100 rows. It costs about $2 on OpenAI to run through 100 rows.
 * The [langchain tracing](https://python.langchain.com/en/latest/additional_resources/tracing.html) is a very useful tool for prompt engineering.
 * Prompt engineer to control the output length (e.g. "using less than 75 words") improves ROUGE score by about 0.5%.
 
