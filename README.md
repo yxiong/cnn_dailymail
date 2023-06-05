@@ -36,14 +36,15 @@ We used the [rouge-score](https://pypi.org/project/rouge-score/) package impleme
 
 ### Random 100 Samples
 
-| Date          |                                                     | ROUGE-1 Score | ROUGE-2 Score | ROUGE-L Score |
-|---------------|-----------------------------------------------------|---------------|---------------|---------------|
-|  May 25, 2023 | Pretrained "facebook/bart-large-cnn"                | 0.444         | 0.228         | 0.316         |
-|  Jun 4, 2023  | LangChain OpenAI with prompt limiting to 75 words   | 0.384         | 0.150         | 0.245         |
-|  Jun 1, 2023  | LangChain summarize calling OpenAI (default prompt) | 0.377         | 0.146         | 0.236         |
-|  May 13, 2023 | Take first 300 characters in the article            | 0.367         | 0.157         | 0.230         |
-|  May 25, 2023 | Pretrained "google/flan-t5-large"                   | 0.163         | 0.066         | 0.132         |
-
+| Date          |                                                              | ROUGE-1 Score | ROUGE-2 Score | ROUGE-L Score |
+|---------------|--------------------------------------------------------------|---------------|---------------|---------------|
+|  May 25, 2023 | Pretrained "facebook/bart-large-cnn"                         | 0.444         | 0.228         | 0.316         |
+|  Jun 4, 2023  | LangChain OpenAI with prompt limiting to 75 words            | 0.384         | 0.150         | 0.245         |
+|  Jun 4, 2023  | LangChain OpenAI with prompt on bullet points, temperature 0 | 0.377         | 0.157         | 0.257         |
+|  Jun 1, 2023  | LangChain summarize calling OpenAI (default prompt)          | 0.377         | 0.146         | 0.236         |
+|  Jun 4, 2023  | LangChain OpenAI with prompt on bullet points                | 0.370         | 0.138         | 0.239         |
+|  May 13, 2023 | Take first 300 characters in the article                     | 0.367         | 0.157         | 0.230         |
+|  May 25, 2023 | Pretrained "google/flan-t5-large"                            | 0.163         | 0.066         | 0.132         |
 
 ## Journal
 
@@ -53,7 +54,10 @@ Used langchain on OpenAI with preliminary prompt engineering,
 and get results slightly better than first-300-character baseline.
 * It took ~10 seconds per row for sending the request to OpenAI, or ~20 minutes for 100 rows. It costs about $2 on OpenAI to run through 100 rows.
 * The [langchain tracing](https://python.langchain.com/en/latest/additional_resources/tracing.html) is a very useful tool for prompt engineering.
-* Prompt engineer to control the output length (e.g. "using less than 75 words") improves ROUGE score by about 0.5%.
+* Prompt engineer has some effects:
+  * Control the output length with "using less than 75 words" improves ROUGE score by about 0.5%.
+  * Ask the model to output bullet improves readability, but not the ROUGE score.
+* Setting the temperature to 0 also improves the ROUGE score by around 1%.
 
 ### May 19, 2023
 
